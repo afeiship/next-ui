@@ -1,0 +1,32 @@
+{
+  "name": "next-ui",
+  "homepage": "https://github.com/afeiship/next-ui",
+  "authors": [
+    "afei"
+  ],
+  "description": "Another mvvm framework based on next.",
+  "main": "dist/next-ui.js",
+  "moduleType": [
+    "node"
+  ],
+  "keywords": [
+    "ui",
+    "mvvm",
+    "next",
+    "toolkit"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "src",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "next-js-core": "*",
+    "next-dom-core": "*",
+    "next-dom-event": "*"
+  }
+}
