@@ -1,13 +1,8 @@
 (function (nx, global) {
 
-  /*
-   Private container
-   */
-  var __ = {
-    parseNames: function (names, inOwner) {
-      return names == '*' ? Object.keys(inOwner.__properties__) : [].concat(names);
-    }
-  };
+  function parseNames(names, inOwner) {
+    return names == '*' ? Object.keys(inOwner.__properties__) : [].concat(names);
+  }
 
   var Observable = nx.declare('nx.Observable', {
     methods: {
@@ -18,20 +13,20 @@
         this.__watchers__ = {};
       },
       watch: function (inNames, inHandler, inContext) {
-        var names = __.parseNames(inNames, this);
+        var names = parseNames(inNames, this);
         nx.each(names, function (index, name) {
           this._watch(name, inHandler, inContext);
         }, this);
       },
       unwatch: function (inNames, inHandler, inContext) {
-        var names = __.parseNames(inNames, this);
+        var names = parseNames(inNames, this);
         nx.each(names, function (index, name) {
           this._unwatch(name, inHandler, inContext);
         }, this);
       },
       notify: function (inNames) {
-        var names = __.parseNames(inNames, this);
-        nx.each(names, function (index,name) {
+        var names = parseNames(inNames, this);
+        nx.each(names, function (index, name) {
           this._notify(name);
         }, this);
       },

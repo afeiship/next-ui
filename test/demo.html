@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <script type="text/javascript" src="../bower_components/next-js-core/dist/next-js-core.js"></script>
+  <script type="text/javascript" src="../dist/next-ui.js"></script>
+  <script type="text/javascript" src="js/model/MailItemModel.js"></script>
+  <script type="text/javascript" src="js/view/MailItem.js"></script>
+  <script type="text/javascript" src="js/view/MailList.js"></script>
+  <script type="text/javascript" src="js/App.js"></script>
+  <style type="text/css">
+    #app {
+      border: 10px dotted #eee;
+      padding: 20px;
+      width: 80%;
+      margin: 6% auto;
+    }
+  </style>
+</head>
+<body>
+<div id="app"></div>
+<script type="text/javascript">
+  var app = new demo.App();
+  app.initView();
+  app.start();
+</script>
+</body>
+</html>
