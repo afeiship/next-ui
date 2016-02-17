@@ -1,13 +1,18 @@
 (function (nx, global) {
 
   nx.declare('nx.data.ObservableCollection', {
-    extends: nx.data.Collection,
+    events: ['change'],
+    extend: nx.data.Collection,
     mixins: [
       nx.Observable
     ],
     methods: {
+      init: function (inData) {
+        this.base(inData);
+        this.watch('count', this.updateIndex, this);
+      },
       add: function (inItem) {
-        var index = this.count;
+        var index = this.count();
         var result = this.base(inItem);
         this.notify('count');
         this.fire('change', {
@@ -18,7 +23,7 @@
         return result;
       },
       addRange: function (inItems) {
-        var index = this.count;
+        var index = this.count();
         var result = this.base(inItems);
         this.notify('count');
         this.fire('change', {
@@ -84,4 +89,4 @@
     }
   })
 
-}(nx, nx.GLOBAL));
+}(nx, nx.global));

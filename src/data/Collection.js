@@ -1,6 +1,7 @@
 (function (nx, global) {
 
-  var Collection = nx.declare('nx.data.Collection', {
+  nx.declare('nx.data.Collection', {
+    extend: nx.data.Iterable,
     properties: {
       count: {
         get: function () {
@@ -12,6 +13,14 @@
       init: function (inData) {
         this.base();
         this._data = inData || [];
+        this.updateIndex();
+      },
+      updateIndex: function () {
+        this.each(function (item, index) {
+          if (item.index) {
+            item.index(index);
+          }
+        });
       },
       add: function (inItem) {
         return this._data.push(inItem);
@@ -27,6 +36,13 @@
         var data = this._data;
         return data.splice.apply(data, [inIndex || 0, 0].concat(inItems));
       },
+      attach: function (inItem, inIndex) {
+        if (inIndex > -1) {
+          this.insert(inItem, inIndex);
+        } else {
+          this.add(inItem);
+        }
+      },
       remove: function (inItem) {
         var index = this.index(inItem);
         if (index >= 0) {
@@ -41,10 +57,10 @@
       },
       index: function (inItem) {
         var result = -1;
-        nx.each(this._data, function (index, item) {
+        nx.each(this._data, function (item, index) {
           if (inItem === item) {
             result = index;
-            return nx.BREAKER;
+            return nx.$breaker;
           }
         });
         return result;
@@ -68,8 +84,19 @@
       },
       toArray: function () {
         return this._data;
+      },
+      serialize: function () {
+        var result = [];
+        this.each(function (item) {
+          if (item.serialize) {
+            result.push(item.serialize());
+          } else {
+            result.push(item);
+          }
+        }, this);
+        return result;
       }
     }
   });
 
-})(nx, nx.GLOBAL);
+})(nx, nx.global);

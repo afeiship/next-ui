@@ -108,7 +108,7 @@
         get: function () {
           var count = 0;
           this.items().each(function (item) {
-            if (item.checked) {
+            if (item.checked()) {
               count++
             }
           }, this);
@@ -123,12 +123,13 @@
           //有选中：indeterminate
           //全选中：checked
           //全未选中:unchecked
-          var query = new nx.data.Query(this.items());
-          var result1 = query.all(function (item) {
-            return item.checked;
+          var data=this.items().toArray();
+          //var query = new nx.data.Query(this.items());
+          var result1 = data.every(function (item) {
+            return item.checked();
           });
-          var result2 = query.any(function (item) {
-            return item.checked;
+          var result2 = data.some(function (item) {
+            return item.checked();
           });
           if (result1) {
             return 'checked';
@@ -167,22 +168,22 @@
         ]);
       },
       _rmv_click: function (inSender, inArgs) {
-        this.items.remove(inArgs.model);
+        this.items().remove(inArgs.model);
         this.notify('checkedCount');
       },
       _add_click: function (inSender, inEvent) {
         var mailNew = new demo.model.MailItemModel({
           title: 'titl2',
           date: +new Date(),
-          checked: this.selectAllChecked
+          checked: this.selectAllChecked()
         });
-        this.items.add(mailNew);
+        this.items().add(mailNew);
         this.notify('checkedCount');
       },
       _select_all_click: function () {
-        this.items.each(function (item) {
+        this.items().each(function (item) {
           item.checked(
-            this.selectAllChecked
+            this.selectAllChecked()
           );
         }, this);
 
@@ -194,4 +195,4 @@
     }
   });
 
-}(nx, nx.GLOBAL));
+}(nx, nx.global));

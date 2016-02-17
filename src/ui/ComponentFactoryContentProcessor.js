@@ -5,7 +5,7 @@
   nx.declare('nx.ui.ComponentFactoryContentProcessor', {
     statics: {
       contentProcess: function (inRoot, inView) {
-        var owner = inRoot.owner;
+        var owner = inRoot.owner();
         var content = inView.content;
         var itemRoot;
         if (!nx.is(content, 'undefined')) {
@@ -20,4 +20,4 @@
     }
   });
 
-}(nx, nx.GLOBAL));
+}(nx, nx.global));

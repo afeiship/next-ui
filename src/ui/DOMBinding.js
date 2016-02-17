@@ -9,19 +9,19 @@
         this.initDomProperty();
       },
       initDomProperty: function () {
-        var direction = this.direction;
+        var direction = this.direction();
         if (direction.charAt(0) === '<') {
           this.redefineDomProperty(
-            this.target,
-            this.targetPath,
-            this.source,
-            this.sourcePath
+            this.target(),
+            this.targetPath(),
+            this.source(),
+            this.sourcePath()
           );
         }
       },
       initDomValue: function () {
-        var target = this.target,
-          targetPath = this.targetPath;
+        var target = this.target(),
+          targetPath = this.targetPath();
         var value = target.get(targetPath);
         this.onTargetChange(targetPath, value);
       },
@@ -35,8 +35,7 @@
         }
       },
       redefineDomProperty: function (inTarget, inTargetProperty, inSource, inSourceProperty) {
-        //var propertyMeta = inTarget.memberMeta(inTargetProperty);
-        var propertyMeta = inTarget['@' + inTargetProperty];
+        var propertyMeta = inTarget.memberMeta(inTargetProperty);
         var value = propertyMeta && propertyMeta.value;
         if (this.canRedefine(inTarget, inTargetProperty)) {
           nx.mix(propertyMeta, {
@@ -52,10 +51,10 @@
               inSource.set(inSourceProperty, inValue);
             }
           });
-          nx.defineProperty(inTarget, inTargetProperty, propertyMeta);
+          inTarget.defineProperty(inTargetProperty, propertyMeta);
         }
       }
     }
   });
 
-}(nx, nx.GLOBAL));
+}(nx, nx.global));

@@ -6,6 +6,7 @@
   var document = global.document;
 
   nx.declare('nx.dom.Document', {
+    'static': true,
     properties: {
       body: {
         get: function () {
@@ -26,4 +27,4 @@
     }
   });
 
-})(nx, nx.GLOBAL);
+})(nx, nx.global);

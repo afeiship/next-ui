@@ -5,8 +5,8 @@
   nx.declare('nx.ui.ComponentFactoryEventsProcessor', {
     statics: {
       eventsProcess: function (inRoot, inView) {
-        var owner = inRoot.owner;
-        nx.each(inView.events, function (name, val) {
+        var owner = inRoot.owner();
+        nx.each(inView.events, function (val, name) {
           bindings.push({
             root: inRoot,
             owner: owner,
@@ -31,7 +31,7 @@
           bindingMeta,
           root;
         var memberType;
-        nx.each(bindings, function (index,item) {
+        nx.each(bindings, function (item) {
           bindingMeta = Binder.bindingMeta(item.value);
           context = bindingMeta.context(item.owner);
           handler = context.member(bindingMeta.property);
@@ -51,4 +51,4 @@
     }
   });
 
-}(nx, nx.GLOBAL));
+}(nx, nx.global));

@@ -20,7 +20,12 @@
       placeholder: 'search..',
       value: '',
       checked: false
+    },
+    methods: {
+      _click: function () {
+        console.log(this.checked());
+      }
     }
   });
 
-}(nx, nx.GLOBAL));
+}(nx, nx.global));

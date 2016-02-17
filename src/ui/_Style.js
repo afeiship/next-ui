@@ -7,7 +7,7 @@
           return this._style;
         },
         set: function (inValue) {
-          nx.each(inValue, function (name, value) {
+          nx.each(inValue, function (value, name) {
             this._style.set(name, value);
           }, this);
         }
@@ -24,4 +24,4 @@
     }
   });
 
-}(nx, nx.GLOBAL));
+}(nx, nx.global));

@@ -71,4 +71,4 @@
     }
   })
 
-}(nx, nx.GLOBAL));
+}(nx, nx.global));

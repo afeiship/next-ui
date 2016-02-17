@@ -12,14 +12,14 @@
         if (this.has(inName)) {
           return this.base(inName);
         } else {
-          return this.dom.get(inName);
+          return this.dom().get(inName);
         }
       },
       set: function (inName, inValue) {
         if (this.has(inName)) {
           this.base(inName, inValue);
         } else {
-          this.dom.set(inName, inValue);
+          this.dom().set(inName, inValue);
         }
       },
       create: function (inType, inValue) {
@@ -40,4 +40,4 @@
     }
   });
 
-}(nx, nx.GLOBAL));
+}(nx, nx.global));

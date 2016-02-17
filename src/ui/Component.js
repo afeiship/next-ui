@@ -46,8 +46,12 @@
           this.getResource('@dom').set(inName, inValue);
           this.notify(inName);
         }
+      },
+      getRootContainer: function () {
+        var comp = this.getResource();
+        console.log(comp);
       }
     }
   })
 
-}(nx, nx.GLOBAL));
+}(nx, nx.global));

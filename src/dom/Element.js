@@ -90,7 +90,7 @@
         return this.$dom.className;
       },
       setStyles: function (inObject) {
-        nx.each(inObject, function (name, val) {
+        nx.each(inObject, function (val, name) {
           this.setStyle(name, val);
         }, this);
       },
@@ -114,12 +114,12 @@
       },
       getAttributes: function () {
         var attrs = {};
-        nx.each(this.$dom.attributes, function (index,attr) {
+        nx.each(this.$dom.attributes, function (attr) {
           attrs[attr.name] = attr.value;
         });
       },
       setAttributes: function (inAttrs) {
-        nx.each(inAttrs, function (key, value) {
+        nx.each(inAttrs, function (value, key) {
           this.setAttribute(key, value);
         }, this);
       },
@@ -160,4 +160,4 @@
     }
   });
 
-})(nx, nx.GLOBAL);
+})(nx, nx.global);

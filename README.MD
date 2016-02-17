@@ -1,9 +1,5 @@
-#next-ui-template
+#next-ui
 
 ##description:
-+ Dom event module based on next toolkit.
++ Another mvvm framework based on next.
 
-##usage:
-+ nx.$(el).on
-+ nx.$(el).off
-+ nx.$(el).fire (Not the same as zepto)

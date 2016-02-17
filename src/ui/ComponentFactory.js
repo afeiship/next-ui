@@ -23,10 +23,10 @@
       createRoot: function (inView, inOwner) {
         var root;
         switch (nx.type(inView)) {
-          case 'array':
+          case 'Array':
             root = new nx.ui.DOMComponent('fragment');
             break;
-          case 'object':
+          case 'Object':
             if (nx.is(inView.tag, 'function')) {
               //debugger;
               root = new inView.tag();
@@ -44,10 +44,10 @@
         root.setResource('@view', inView);
         if (inOwner) {
           inOwner.setResource(inView.name, root);
-          root.owner = inOwner;
+          root.owner(inOwner);
         } else {
           //template:
-          root.owner = root;
+          root.owner(root);
         }
         return root;
       },
@@ -59,4 +59,4 @@
     }
   });
 
-}(nx, nx.GLOBAL));
+}(nx, nx.global));

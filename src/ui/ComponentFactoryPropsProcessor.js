@@ -5,16 +5,16 @@
   nx.declare('nx.ui.ComponentFactoryPropsProcessor', {
     statics: {
       propsProcess: function (inRoot, inView) {
-        var owner = inRoot.owner;
+        var owner = inRoot.owner();
         this.propsMapProcess(inRoot, inView.props, owner);
       },
       propProcess: function (inRoot, inOwner, inName, inValue) {
         switch (true) {
           case nx.is(inValue, 'object') && inName === 'style':
-            this.propsMapProcess(inRoot.style, inValue, inOwner);
+            this.propsMapProcess(inRoot.style(), inValue, inOwner);
             break;
           case nx.is(inValue, 'array') && inName === 'class':
-            this.propsArrayProcess(inRoot.class, inValue, inOwner);
+            this.propsArrayProcess(inRoot.class(), inValue, inOwner);
             break;
           default :
             bindings.unshift({
@@ -26,12 +26,12 @@
         }
       },
       propsArrayProcess: function (inRoot, inArray, inOwner) {
-        nx.each(inArray, function (index, value) {
+        nx.each(inArray, function (value, index) {
           this.propProcess(inRoot, inOwner, '' + index, value);
         }, this);
       },
       propsMapProcess: function (inRoot, inPropsMap, inOwner) {
-        nx.each(inPropsMap, function (name, value) {
+        nx.each(inPropsMap, function (value, name) {
           this.propProcess(inRoot, inOwner, name, value);
         }, this);
       },
@@ -73,4 +73,4 @@
     }
   });
 
-}(nx, nx.GLOBAL));
+}(nx, nx.global));

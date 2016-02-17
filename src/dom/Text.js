@@ -1,7 +1,7 @@
-(function (nx,global) {
+(function (nx, global) {
 
-    nx.declare('nx.dom.Text',{
-        extend:nx.dom.Node
-    });
+  nx.declare('nx.dom.Text', {
+    extend: nx.dom.Node
+  });
 
-})(nx,nx.GLOBAL);
+})(nx, nx.global);

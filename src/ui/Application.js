@@ -1,7 +1,5 @@
 (function (nx, global) {
 
-
-  var ComponentFactory = nx.ui.ComponentFactory;
   nx.declare('nx.ui.Application', {
     extend: nx.ui.ComponentBase,
     methods: {
@@ -9,9 +7,9 @@
         return nx.dom.Document.body();
       },
       start: function () {
-        ComponentFactory.applyBinding();
+        nx.ui.ComponentFactory.applyBinding();
       }
     }
   });
 
-}(nx, nx.GLOBAL));
+}(nx, nx.global));

@@ -8,7 +8,7 @@
         },
         set: function (inValue) {
           switch (nx.type(inValue)) {
-            case 'array':
+            case 'Array':
               this._class.set(inValue.join(''));
               break;
             default:
@@ -28,4 +28,4 @@
     }
   });
 
-}(nx, nx.GLOBAL));
+}(nx, nx.global));

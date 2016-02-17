@@ -4,7 +4,7 @@
   nx.declare('nx.ui.ComponentBase', {
     extend: nx.Observable,
     mixins: [
-      nx.Resources,
+      nx.ResourceManager,
       nx.ui._Class,
       nx.ui._Style,
       nx.ui._Template
@@ -15,7 +15,7 @@
           return this._content;
         },
         set: function (inValue) {
-          nx.each(this._content.toArray(), function (index,item) {
+          nx.each(this._content.toArray(), function (item) {
             item.destroy();
           });
           if (nx.is(inValue, 'nx.ui.ComponentBase')) {
@@ -23,7 +23,7 @@
           } else if (inValue) {
             ComponentFactory.createComponent(
               inValue,
-              this.owner
+              this.owner()
             ).attach(this);
           }
         }
@@ -35,7 +35,7 @@
         set: function (inValue) {
           this._content.each(function (item) {
             if (!nx.is(item, 'String')) {
-              item.model = inValue;
+              item.model(inValue);
             }
           });
           this._model = inValue;
@@ -47,11 +47,11 @@
           var absOwner = this.getResource('@absOwner');
           var owner;
           if (!absOwner) {
-            owner = this.owner;
+            owner = this.owner();
             if (this === owner) {
-              owner = this.parent;
+              owner = this.parent();
             }
-            return owner.absOwner;
+            return owner.absOwner();
           }
           return absOwner;
         }
@@ -80,34 +80,33 @@
       attach: function (inParent, inIndex) {
         if (nx.is(inParent, 'nx.ui.ComponentBase')) {
           var name = this.getResource('@name');
-          var owner = this.owner || inParent;
+          var owner = this.owner() || inParent;
           var root = this.getResource('@dom');
           var container = inParent.getContainer();
 
           if (root) {
             if (inIndex >= 0) {
-              var ref = inParent.content.item(inIndex);
+              var ref = inParent.content().item(inIndex);
 
               if (ref && ref.getResource('@tag') === 'fragment') {
-                ref = ref.content.getItem(0);
+                ref = ref.content().getItem(0);
               }
 
               if (ref) {
                 container.insertBefore(root, ref.getResource('@dom'));
-                inParent.content.insert(this, inIndex);
+                inParent.content().insert(this, inIndex);
               } else {
                 container.appendChild(root);
-                inParent.content.add(this);
+                inParent.content().add(this);
               }
             } else {
-              //TODO:key
               container.appendChild(root);
-              inParent.content.add(this);
+              inParent.content().add(this);
             }
           }
 
 
-          this.owner = owner;
+          this.owner(owner);
           this.setResource('@parent', inParent);
           if (nx.is(inParent, 'nx.ui.Application')) {
             this.setResource('@absOwner', this);
@@ -138,17 +137,17 @@
       detach: function () {
         if (this.__attached__) {
           var name = this.getResource('@name');
-          var owner = this.owner;
+          var owner = this.owner();
           var parent = this.getResource('@parent');
 
           if (parent) {
             parent.getContainer().removeChild(this.getResource('@dom'));
-            parent.content.remove(this);
+            parent.content().remove(this);
           }
 
           if (this.getResource('@tag') === 'fragment') {
             var root = this.getResource('@dom');
-            this.content.each(function (child) {
+            this.content().each(function (child) {
               root.appendChild(child.getResource('@dom'));
             });
           }
@@ -179,4 +178,4 @@
     }
   });
 
-}(nx, nx.GLOBAL));
+}(nx, nx.global));

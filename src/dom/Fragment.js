@@ -9,7 +9,7 @@
        */
       children: function () {
         var result = new Collection();
-        nx.each(this.$dom.childNodes, function (index,child) {
+        nx.each(this.$dom.childNodes, function (child) {
           result.add(new this.constructor(child));
         }, this);
         return result;
@@ -17,4 +17,4 @@
     }
   });
 
-})(nx, nx.GLOBAL);
+})(nx, nx.global);

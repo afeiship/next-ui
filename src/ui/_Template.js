@@ -32,8 +32,8 @@
     methods: {
       createItem: function () {
         var itemComp = ComponentFactory.createComponent(this._itemTemplate);
-        var parent = this.parent;
-        var absOwner = parent ? parent.owner : this.owner;
+        var parent = this.parent();
+        var absOwner = parent ? parent.owner() : this.owner();
         itemComp.setResource('@absOwner', absOwner);
         return itemComp;
       },
@@ -46,8 +46,8 @@
           this.empty();
           items.each(function (item) {
             itemComp = this.createItem();
-            itemOwner = itemComp.owner;
-            itemOwner.model = item;
+            itemOwner = itemComp.owner();
+            itemOwner.model(item);
             itemComp.attach(this);
           }, this);
         }
@@ -66,14 +66,14 @@
         var action = inEvent.action;
         var index = inEvent.index;
         if (action === 'add') {
-          nx.each(inEvent.items, function (idx,item) {
+          nx.each(inEvent.items, function (item) {
             var comp = this.createItem();
-            comp.model = item;
+            comp.model(item);
             comp.attach(this, index++);
           }, this);
         } else if (action === 'remove') {
           nx.each(inEvent.items, function () {
-            var comp = this.content.item(index);
+            var comp = this.content().item(index);
             if (comp) {
               comp.detach();
             }
@@ -94,4 +94,4 @@
     }
   });
 
-}(nx, nx.GLOBAL));
+}(nx, nx.global));
