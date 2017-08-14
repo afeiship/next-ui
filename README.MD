@@ -1,5 +1,3 @@
-#next-ui
-
-##description:
-+ Another mvvm framework based on next.
+# next-ui
+> Another mvvm framework based on next.
 
